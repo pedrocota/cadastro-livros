@@ -1,0 +1,272 @@
+/* ============================================================
+   Fichário da biblioteca
+   Fundo verde de mesa de biblioteca, fichas catalográficas em papel,
+   texto datilografado nas fichas.
+   ============================================================ */
+
+:root {
+    --mesa: #1d3a33;          /* verde escuro do fundo */
+    --mesa-clara: #27493f;
+    --papel: #fbfaf6;         /* papel da ficha */
+    --pauta: #c9d9e6;         /* linhas azuis da ficha */
+    --margem: #c0392b;        /* linha vermelha do cabeçalho */
+    --tinta: #22201c;         /* texto datilografado */
+    --tinta-suave: #5d5a53;
+    --latao: #c9a227;         /* metal da gaveta / foco */
+
+    --cat-tecnologia: #2f6f8f;
+    --cat-financas: #b07d12;
+    --cat-literatura: #8e2a3b;
+    --cat-outros: #6b6b6b;
+
+    --serifa: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+    --maquina: "Courier Prime", "Courier New", monospace;
+    --linha: 1.75rem;         /* altura da pauta das fichas */
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 50% -10%, var(--mesa-clara), transparent 60%),
+        var(--mesa);
+    color: var(--papel);
+    font-family: var(--serifa);
+    line-height: 1.5;
+}
+
+.pagina {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+}
+
+/* ---------------------------------------------------------- cabeçalho */
+
+.cabecalho {
+    margin-bottom: 40px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.subtitulo {
+    margin: 6px 0 0;
+    max-width: 52ch;
+    color: #c8d6cf;
+}
+
+.colunas {
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* ---------------------------------------------------------- ficha nova (formulário) */
+
+.ficha-nova {
+    position: sticky;
+    top: 24px;
+    background: var(--papel);
+    color: var(--tinta);
+    padding: 28px 26px 24px;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #d8d3c4, 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.ficha-nova h2 {
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    font-size: 1.35rem;
+    border-bottom: 2px solid var(--margem);
+}
+
+form {
+    display: grid;
+    gap: 16px;
+}
+
+label {
+    display: grid;
+    gap: 4px;
+    font-size: 0.95rem;
+    color: var(--tinta-suave);
+}
+
+.obrigatorio {
+    color: var(--margem);
+}
+
+input,
+select {
+    width: 100%;
+    padding: 6px 2px;
+    border: 0;
+    border-bottom: 1.5px solid #b9b4a6;
+    border-radius: 0;
+    background: transparent;
+    color: var(--tinta);
+    font-family: var(--maquina);
+    font-size: 1.05rem;
+}
+
+select {
+    cursor: pointer;
+}
+
+input:focus-visible,
+select:focus-visible {
+    outline: none;
+    border-bottom-color: var(--latao);
+    box-shadow: 0 2px 0 var(--latao);
+}
+
+button {
+    margin-top: 6px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--mesa);
+    color: var(--papel);
+    font-family: var(--serifa);
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--mesa-clara);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--latao);
+    outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------- gaveta (lista) */
+
+.gaveta h2 {
+    margin: 0 0 22px;
+    font-size: 1.35rem;
+}
+
+#listaLivros {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 34px 24px;
+}
+
+/* Cada livro é uma ficha catalográfica */
+#listaLivros li {
+    position: relative;
+    min-height: calc(var(--linha) * 6);
+    padding: calc(var(--linha) * 0.5) 22px calc(var(--linha) * 1.4);
+    border-radius: 3px;
+    color: var(--tinta);
+    font-family: var(--maquina);
+    line-height: var(--linha);
+    background-color: var(--papel);
+    /* linha vermelha do cabeçalho + pauta azul */
+    background-image:
+        linear-gradient(var(--margem), var(--margem)),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent calc(var(--linha) - 1px),
+            var(--pauta) calc(var(--linha) - 1px),
+            var(--pauta) var(--linha)
+        );
+    background-size: 100% 2px, 100% 100%;
+    background-position: 0 calc(var(--linha) * 1.5 - 1px), 0 calc(var(--linha) * 0.5);
+    background-repeat: no-repeat, repeat;
+    box-shadow: 0 1px 0 #d8d3c4, 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* furo da haste do fichário */
+#listaLivros li::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    border-radius: 50%;
+    background: var(--mesa);
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* aba com a categoria (vem de data-categoria) */
+#listaLivros li[data-categoria]::before {
+    content: attr(data-categoria);
+    position: absolute;
+    top: -22px;
+    right: 18px;
+    padding: 2px 12px 4px;
+    border-radius: 6px 6px 0 0;
+    background: var(--cat-outros);
+    color: #fff;
+    font-family: var(--serifa);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* nome da aba com acento e maiúscula (o valor interno é "financas", sem cedilha) */
+#listaLivros li[data-categoria="tecnologia"]::before { content: "Tecnologia"; background: var(--cat-tecnologia); }
+#listaLivros li[data-categoria="financas"]::before   { content: "Finanças";   background: var(--cat-financas); }
+#listaLivros li[data-categoria="literatura"]::before { content: "Literatura"; background: var(--cat-literatura); }
+#listaLivros li[data-categoria="outros"]::before     { content: "Outros"; }
+
+#listaLivros li strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#listaLivros li p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* A ficha recém-cadastrada (a última) entra na gaveta */
+#listaLivros li[data-categoria]:last-child {
+    animation: entra-na-gaveta 420ms ease-out;
+}
+
+@keyframes entra-na-gaveta {
+    from { transform: translateY(-18px) rotate(-1.5deg); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+}
+
+/* Lista vazia: uma ficha em branco convidando a cadastrar */
+#listaLivros li:not([data-categoria]) {
+    grid-column: 1 / -1;
+    max-width: 420px;
+    color: var(--tinta-suave);
+    background-color: rgba(251, 250, 246, 0.85);
+}
+
+/* ---------------------------------------------------------- responsivo e acessibilidade */
+
+@media (max-width: 760px) {
+    .pagina { padding: 28px 16px 48px; }
+    .colunas { grid-template-columns: 1fr; gap: 48px; }
+    .ficha-nova { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #listaLivros li[data-categoria]:last-child { animation: none; }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha biblioteca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="pagina">
+        <header class="cabecalho">
+            <h1>Minha biblioteca</h1>
+            <p class="subtitulo">Preencha a ficha e o livro entra no fichário.</p>
+        </header>
+
+        <div class="colunas">
+            <!-- 1. Formulário -->
+            <section class="ficha-nova" aria-labelledby="tituloFicha">
+                <h2 id="tituloFicha">Nova ficha</h2>
+                <form id="formLivro">
+                    <label>
+                        <span>Título do livro <span class="obrigatorio" aria-hidden="true">*</span></span>
+                        <input type="text" id="titulo" required>
+                    </label>
+
+                    <label>
+                        <span>Autor <span class="obrigatorio" aria-hidden="true">*</span></span>
+                        <input type="text" id="autor" required>
+                    </label>
+
+                    <label>
+                        <span>Ano de publicação <span class="obrigatorio" aria-hidden="true">*</span></span>
+                        <input type="number" id="ano" min="0" max="2100" step="1" required>
+                    </label>
+
+                    <label>
+                        <span>Categoria <span class="obrigatorio" aria-hidden="true">*</span></span>
+                        <select id="categoria" required>
+                            <option value="">Selecione...</option>
+                            <option value="tecnologia">Tecnologia</option>
+                            <option value="financas">Finanças</option>
+                            <option value="literatura">Literatura</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Editora (opcional)
+                        <input type="text" id="editora">
+                    </label>
+
+                    <button type="submit">Cadastrar livro</button>
+                </form>
+            </section>
+
+            <!-- Área da listagem -->
+            <section class="gaveta" aria-labelledby="tituloLista">
+                <h2 id="tituloLista">Livros cadastrados</h2>
+                <ul id="listaLivros" aria-live="polite"></ul>
+            </section>
+        </div>
+    </div>
+
+    <!-- O navegador executa o JavaScript gerado pelo TypeScript (pasta dist) -->
+    <script src="dist/main.js"></script>
+</body>
+</html>
